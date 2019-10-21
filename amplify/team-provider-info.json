@@ -1,0 +1,19 @@
+{
+    "fbenv": {
+        "awscloudformation": {
+            "AuthRoleName": "footballapp-fbenv-20191021134741-authRole",
+            "UnauthRoleArn": "arn:aws:iam::864007670970:role/footballapp-fbenv-20191021134741-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::864007670970:role/footballapp-fbenv-20191021134741-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "footballapp-fbenv-20191021134741-deployment",
+            "UnauthRoleName": "footballapp-fbenv-20191021134741-unauthRole",
+            "StackName": "footballapp-fbenv-20191021134741",
+            "StackId": "arn:aws:cloudformation:us-east-2:864007670970:stack/footballapp-fbenv-20191021134741/434dc370-f433-11e9-9d34-06c94a3c6390"
+        },
+        "categories": {
+            "auth": {
+                "footballappbe5efa29": {}
+            }
+        }
+    }
+}

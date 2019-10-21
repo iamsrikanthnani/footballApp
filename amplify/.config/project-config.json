@@ -1,0 +1,17 @@
+{
+    "projectName": "footballApp",
+    "version": "2.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react-native",
+        "config": {
+            "SourceDir": "/",
+            "DistributionDir": "/",
+            "BuildCommand": "fba build",
+            "StartCommand": "fba start"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}
