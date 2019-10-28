@@ -10,8 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-navigation/web": "^1.0.0-alpha.9",
+    "amazon-cognito-identity-js": "^3.1.3",
+    "aws-amplify": "^1.2.3",
     "react": "16.9.0",
-    "react-native": "0.61.2"
+    "react-native": "0.61.2",
+    "react-native-gesture-handler": "~1.3.0",
+    "react-navigation": "^3.12.0",
+    "react-navigation-stack": "^1.10.3"
   },
   "devDependencies": {
     "@babel/core": "7.6.4",
