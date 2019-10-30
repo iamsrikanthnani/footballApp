@@ -36,6 +36,8 @@ target 'footballApp' do
 
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'footballAppTests' do
     inherit! :search_paths
     # Pods for testing

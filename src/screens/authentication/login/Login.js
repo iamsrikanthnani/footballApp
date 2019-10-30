@@ -5,21 +5,19 @@ import awsConfig from '../AWSconfiguration/awsConfig';
 import { Auth } from 'aws-amplify'
 
 
-// const onClickSignIn = () => {
-//   Auth.signIn(someUsername, somePassword)
-//   alert('Signed in')
-// }
-
-const onClickSigIn = async ( { username, password } ) => {
-  try {
-    await Auth.signIn(username, password)
-    console.log('sign in success!')
-  } catch (err) {
-    console.log('error signing in..', err)
-  }
-}
 
 export class Login extends Component {
+
+  onClickSigIn = async ( { username, password } ) => {
+    try {
+      await Auth.signIn(username, password)
+      console.log('sign in success!')
+      // this.props.navigation.navigate('Profile')
+    } catch (err) {
+      console.log('error signing in..', err)
+    }
+  }
+
   render() {
     return (
       <View style={ styles.loginText }>
@@ -35,22 +33,11 @@ export class Login extends Component {
         <TouchableOpacity>
           <Button
             title='Log In'
-            onPress={ () => 
-              // Auth.signIn({userName:'ahmedabd2018@gmail.com', password: 'Allahis1' })
-              onClickSigIn({ username:'ahmedabd2018@gmail.com', password: 'Allahis1' })
+            onPress={ () => this.props.navigation.navigate('Profile')
+              // () => this.onClickSigIn({ username:'ahmedabd2018@gmail.com', password: 'Allahis1' })
             }
           />
         </TouchableOpacity>
-
- {/*        <TouchableOpacity>
-          <Button
-            title='Confirm my account'
-            onPress={ () => Auth.confirmSignUp('ahmedbad2018@gmail.com', '730339') }
-          />
-        </TouchableOpacity>
-
- */}
-
       </View>
     )
   }
