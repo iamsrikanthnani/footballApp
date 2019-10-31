@@ -1,19 +1,14 @@
-//This is an example code for Bottom Navigation//
 import React from 'react';
-import {Button, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-//import all the basic component we have used
 import Ionicons from 'react-native-vector-icons/Ionicons';
-//import Ionicons to show the icon for bottom options
 
 //For React Navigation 4+
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-
-import { SignInStack, SignUpStack } from './NavigationStacks';
+import { LoginStack, SignUpStack } from './NavigationStacks';
 
 const BottomNavigator = createBottomTabNavigator(
   {
-    'Sign in': {screen: SignInStack},
+    'Sign in': {screen: LoginStack},
     'Sign up': {screen: SignUpStack},
   },
   {
@@ -22,7 +17,7 @@ const BottomNavigator = createBottomTabNavigator(
         const {routeName} = navigation.state;
         let IconComponent = Ionicons;
         let iconName;
-        if (routeName === 'Sign in') {
+        if (routeName === 'Home') {
           iconName = `ios-information-circle${focused ? '' : '-outline'}`;
         } else if (routeName === 'Settings') {
           iconName = `ios-checkmark-circle${focused ? '' : '-outline'}`;

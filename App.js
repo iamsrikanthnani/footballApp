@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import BottomNavigator from './src/bottomTabNavigation/BottomNavigator';
+import BottomNavigator from './src/navigation/bottomTabNavigation/BottomNavigator';
+
   class App extends Component {
   render() {
     return (

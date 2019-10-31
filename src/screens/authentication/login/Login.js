@@ -34,7 +34,6 @@ export class Login extends Component {
           <Button
             title='Log In'
             onPress={ () => this.props.navigation.navigate('Profile')
-              // () => this.onClickSigIn({ username:'ahmedabd2018@gmail.com', password: 'Allahis1' })
             }
           />
         </TouchableOpacity>
@@ -43,45 +42,4 @@ export class Login extends Component {
   }
 }
 
-export default Login
-
-
-
-
-// import React, { Component } from 'react';
-// import { View } from 'react-native';
-// import LoginForm from './LoginForm';
-// import { Header, Button, Spinner } from '../../../components/common';
-
-
-// export class Login extends Component {
-
-//   state = { loggedIn: null };
-
-
-//   renderContent() {
-//     switch (this.state.loggedIn) {
-//       case true:
-//         return (
-//           <Button onPress={() => console.log('Clicked')}>
-//             Log Out
-//           </Button>
-//         );
-//       case false:
-//         return <LoginForm />;
-//       default:
-//         return <Spinner size="large" />;
-//     }
-//   }
-
-//   render() {
-//     return (
-//     <View>
-//       <Header headerText="Log In" />
-//       {/* {this.renderContent()} */}
-//     </View>
-//     );
-//   }
-// }
-
-// export default Login;
+export default Login;

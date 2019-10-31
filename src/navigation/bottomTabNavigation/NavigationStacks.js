@@ -1,16 +1,17 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import SignInScreen from '../screens/authentication/login/Login';
-import SignUpScreen from '../screens/authentication/signup/Signup';
-import ProfileScreen from '../screens/profile/Profile';
+import LogInScreen from '../../screens/authentication/login/Login';
+import SignUpScreen from '../../screens/authentication/signup/Signup';
+import ProfileScreen from '../../screens/profile/Profile';
+import FeedScreen from '../../screens/feed/Feed';
 
 
-export const SignInStack = createStackNavigator(
+export const LoginStack = createStackNavigator(
   {
-    //Defination of Navigaton from home screen
-    'Sign in': {screen: SignInScreen},
-    
+    'Sign in': {screen: LogInScreen},
+    'Sign up': {screen: SignUpScreen},
+     Profile: {screen: ProfileScreen},
+     Feed: {screen: FeedScreen},
   },
-  {Profile: {screen: ProfileScreen},},
   {
     defaultNavigationOptions: {
       //Header customization of the perticular Screen
@@ -24,32 +25,32 @@ export const SignInStack = createStackNavigator(
   },
 );
 
-// export const SignUpStack = createStackNavigator(
-//   {
-//     'Sign up': {screen: SignUpScreen},
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       headerStyle: {
-//         backgroundColor: '#42f44b',
-//       },
-//       headerTintColor: '#FFFFFF',
-//       title: 'Sign up',
-//     },
-//   },
-// );
+export const SignUpStack = createStackNavigator(
+  {
+    'Sign up': {screen: SignUpScreen},
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#42f44b',
+      },
+      headerTintColor: '#FFFFFF',
+      title: 'Sign up',
+    },
+  },
+);
 
-// export const ProfileStack = createStackNavigator(
-//   { 
-//     Profile: { screen: ProfileScreen }
-//   },
-//   {
-//   defaultNavigationOptions: {
-//     headerStyle: {
-//       backgroundColor: '#42f44b',
-//     },
-//     headerTintColor: '#FFFFFF',
-//     title: 'Profile',
-//   },
-//   }
-//   );
+export const ProfileStack = createStackNavigator(
+  { 
+    Profile: { screen: ProfileScreen }
+  },
+  {
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: '#42f44b',
+    },
+    headerTintColor: '#FFFFFF',
+    title: 'Profile',
+  },
+  }
+  );
