@@ -1,0 +1,189 @@
+extends: airbnb
+
+# Allows ESLint to understand new/experimental syntax
+parser: babel-eslint
+
+plugins:
+- jest
+- babel
+- detox
+- jsx-max-len
+- unicorn
+
+env:
+  # So that eslint won't complain about globally referenced jest functions.
+  # Like: beforeEach, test, expect
+  jest/globals: true
+
+globals:
+  # Built into React Native, a boolean which is true on dev builds
+  __DEV__: false
+  navigator: navigator
+
+settings:
+  import/resolver:
+    node:
+      extensions:
+      - .js
+      - .json
+      - .ios.js
+      - .android.js
+
+rules:
+
+  parameters:
+    lineLength: &maxLineLength 120
+
+  ###############################################
+  # General JavaScript
+  ###############################################
+
+  max-len:
+  - warn
+  - code: *maxLineLength
+    ignoreComments: true
+    ignoreStrings: true
+    ignoreTemplateLiterals: true
+    ignoreRegExpLiterals: true
+
+  no-console:
+  - warn
+  - allow:
+    - warn
+    - error
+    - info
+    - tron # we make this a reference to Reactotron
+
+  no-underscore-dangle: off
+
+  # Don't allow anonymous functions.  Helps with debugging from stacktraces.
+  func-names:
+  - warn
+  - as-needed
+
+  # Turned off to allow if-elses to have returns
+  no-else-return: off
+
+  # Only require parentheses around the parameters of an arrow function when there are multiple parameters.
+  arrow-parens:
+  - error
+  - as-needed
+  - requireForBlockBody: false
+
+  # No trailing commas for same line (e.g. [some, thing])
+  # But require them for: [
+  #   some,
+  #   thing,
+  # ]
+  comma-dangle:
+  - warn
+  - always-multiline
+
+  # Adds semicolon requirement to new syntaxes like class properties
+  babel/semi:
+  - error
+  - always
+
+  # Allow Function Hoisting
+  no-use-before-define: off
+
+  no-multiple-empty-lines:
+  - warn
+  - max: 1
+
+  # Require all blocks (ifs, loops, etc.) to have curly braces
+  curly:
+  - error
+  - all
+
+  # It's up to us to decide when it makes sense to have a default vs named export
+  import/prefer-default-export: off
+
+  # Forbid generally disabling eslint without specifying which rules to disable
+  unicorn/no-abusive-eslint-disable: warn
+
+  # Do no explicitly import an index file
+  unicorn/import-index: warn
+
+  # Allow ternary expressions
+  no-unused-expressions:
+  - error
+  - allowTernary: true
+
+  ###############################################
+  # React-Specific
+  ###############################################
+
+  # Sometimes we need to import React even if not directly referencing it.
+  no-unused-vars:
+  - warn
+  - varsIgnorePattern: ^React$
+
+  # Enforcing single-quotes in JSX for consistency
+  jsx-quotes:
+  - error
+  - prefer-single
+
+  # Turning off because we often scaffold a component as a class with the
+  # intention of building it out later, even if it starts with nothing but
+  # a basic render() method.
+  react/prefer-stateless-function: off
+
+  # Allows js files to contain jsx (airbnb only allowed jsx files)
+  react/jsx-filename-extension:
+  - error
+  - extensions: ['.jsx', '.js']
+
+  react/forbid-prop-types:
+  - error
+  - forbid:
+    - any
+    - array
+
+  # Only check prop types when we have created a propType declaration
+  react/prop-types:
+  - error
+  - skipUndeclared: true
+
+  # Force spacing in JSX curly braces
+  react/jsx-curly-spacing:
+  - error
+  - when: always
+    children: true
+
+  # Enforce line length for JSX
+  jsx-max-len/jsx-max-len:
+  - error
+  - lineMaxLength: *maxLineLength
+
+  # Permit the import of devDependencies in all test-related or Reactotron-related files
+  import/no-extraneous-dependencies:
+  - warn
+  - devDependencies:
+    - 'e2e/**'
+    - '**/*.test.js'
+    - '**/__mocks__/*'
+    - '**/*Reactotron*'
+    - 'scripts/**'
+    - 'jest.setup.js'
+
+###############################################
+overrides:
+
+# Style files
+#############
+- files: ['**/*.style.js']
+  rules:
+    # Alphabetically ordered keys helps us find stuff in those mammoth objects
+    sort-keys:
+    - error
+    - asc
+    - caseSensitive: true
+      natural: true
+
+# Test files
+############
+- files: ['**/*.test.js']
+  rules:
+    # test cases ('it' blocks) should always be allowed to use curly brace bodies
+    arrow-body-style: off

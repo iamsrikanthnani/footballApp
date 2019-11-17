@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import BottomNavigator from './src/navigation/bottomTabNavigation/BottomNavigator';
+import ScreensNavigator from './src/navigation/NavigationStacks';
+
 
   class App extends Component {
   render() {
     return (
-      <BottomNavigator />
+      <ScreensNavigator />
     )
   }
 }
 
-export default App
+// console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+export default App;

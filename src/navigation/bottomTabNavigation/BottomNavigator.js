@@ -1,15 +1,18 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-//For React Navigation 4+
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import { LoginStack, SignUpStack } from './NavigationStacks';
+import { LoginStack, SignUpStack } from '../NavigationStacks';
+import Feed from '../../screens/feed/Feed';
+import SecProfile from '../../screens/profile/SecProfile';
+import Profile from '../../screens/profile/Profile';
 
 const BottomNavigator = createBottomTabNavigator(
   {
-    'Sign in': {screen: LoginStack},
-    'Sign up': {screen: SignUpStack},
+    Profile: { screen: Profile },
+    // SecProfile: {screen: SecProfile},
+    Feed: { screen: Feed },
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
@@ -17,7 +20,7 @@ const BottomNavigator = createBottomTabNavigator(
         const {routeName} = navigation.state;
         let IconComponent = Ionicons;
         let iconName;
-        if (routeName === 'Home') {
+        if (routeName === 'Profile') {
           iconName = `ios-information-circle${focused ? '' : '-outline'}`;
         } else if (routeName === 'Settings') {
           iconName = `ios-checkmark-circle${focused ? '' : '-outline'}`;

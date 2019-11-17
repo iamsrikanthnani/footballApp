@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 
-export class Profile extends Component {
+class Profile extends Component {
   render() {
     return (
-      <View>
-        <Text> Profile screen </Text>
-      </View>
+      <Text> Profile screen </Text>
     )
   }
 }
 
-export default Profile
+export default Profile;
