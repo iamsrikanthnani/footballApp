@@ -11,23 +11,22 @@ export class Login extends Component {
 
   onClickSigIn = async (username, password) => {
     try {
-      await Auth.signIn(username, password)
-      
+      await Auth.signIn(username, password)  
       console.log('sign in success!')
-      this.props.navigation.navigate('Profile')
-      // this.props.navigation.navigate('Profile')
+
+      this.props.navigation.navigate('Profile');
+      // this.props.navigation.navigate('Profile');
     } catch (err) {
     console.log('error signing in..', err)
     }
-  }; 
-  
+  };
 
   render() {
     return (
       <View>
         <LoginForm onPressAction={ () => this.onClickSigIn('edbraouf@gmail.com', 'Allahis1') } />
         <TouchableOpacity>
-          <Button title='Become player >' onPress={ ()=> this.props.navigation.navigate('Signup') }>  </Button>
+          <Button title='Become player >' onPress={ () => this.props.navigation.navigate('Signup') }></Button>
         </TouchableOpacity>  
       </View>
     )
