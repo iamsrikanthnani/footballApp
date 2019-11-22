@@ -10,10 +10,11 @@ export class Signup extends Component {
     title: 'myHome',
   }; */
 
+
   state = {
     userInfo: {
       userName: "ahmedabd2018@gmail",
-      confirmationCode: "147972",
+      confirmationCode: "295947",
       password: 'Allahis1',
       repeatedPassword: 'Allahis1'
     },
@@ -40,7 +41,7 @@ export class Signup extends Component {
    const { userName, confirmationCode } = this.state.userInfo
   try {
     
-    await Auth.confirmSignUp('ahmedabd2018@gmail.com', '147972');
+    await Auth.confirmSignUp('edbraouf@gmail.com', '094962');
     console.log('confirm sign up success!');
     alert('Confirmation succeed');
     this.setState({ isSignupConfirmed: true });
@@ -51,7 +52,6 @@ export class Signup extends Component {
     this.setState({ isSignupConfirmed: false });
   }
 };
-
 
 
   SignUpConfirmation = () => {
@@ -81,8 +81,8 @@ export class Signup extends Component {
     const { userName, password } = this.state.userInfo;
     const { isSignupSucceed, shouldShowConfirmationStep } = this.state;
     return (
-        isSignupSucceed && shouldShowConfirmationStep ? this.SignUpConfirmation() : <SignupForm onPressJoin={ () => this.onClickSignUp('ahmedabd2018@gmail.com', 'Allahis1') } />
-        // this.SignUpConfirmation()
+        // isSignupSucceed && shouldShowConfirmationStep ? this.SignUpConfirmation() : <SignupForm onPressJoin={ () => this.onClickSignUp('edbraouf@gmail.com', 'Allahis1') } />
+        this.SignUpConfirmation()
     )
   }
 }
