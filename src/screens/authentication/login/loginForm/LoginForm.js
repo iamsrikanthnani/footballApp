@@ -1,23 +1,48 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import styles from './LoginForm.style'
+import { loginAction } from '../../../../STATE/actions/login';
+
+const mapStateToProps = state => {
+  return {
+    // username: state.userName,
+    username: state.login.userName,
+    password: state.login.password
+  }
+};
+
+const mapDispatchToProps = {
+onLogin: loginAction
+};
 
 export class LoginForm extends Component {
 
   state = {
-    userName: 'edbraouf@gmail.com',
+    userName: '',
     password: 'Allahis1'
+  };
+
+  placeNameChangeHandler = (value) => {
+    this.setState({
+      userName: value
+    });
   }
 
   render() {
-    const { onPressAction, footer, } = this.props;
+    const { onLogin, footer, } = this.props;
     return (
       <View style={ styles.container }>
       <View style={ styles.form }>
         <Text> Log in Screen </Text>
         <TextInput
-          placeholder='User Name'
-          autoCapitalize='none'
+          // placeholder='User Name'
+          // autoCapitalize='none'
+
+          placeholder = "User name"
+          // style = { styles.placeInput }
+          value = { this.state.placeName }
+          onChangeText = { this.placeNameChangeHandler }
         />
         <TextInput
           placeholder='Password'
@@ -26,9 +51,12 @@ export class LoginForm extends Component {
         <TouchableOpacity>
           <Button
             title='Log In'
-            onPress={ onPressAction }
+            onPress={ onLogin({ userName: 'UserNAMEis', password: 'Allahis1'} ) }
           />
         </TouchableOpacity>
+        <Text> {this.props.username} </Text>
+        <Text> {this.props.password} </Text>
+        
         { footer }
         </View>
       </View>
@@ -36,4 +64,4 @@ export class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
