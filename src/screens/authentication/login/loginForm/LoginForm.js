@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import styles from './LoginForm.style'
-import { loginAction } from '../../../../STATE/actions/login';
+import { loginAction } from '../../../../normalState/actions/login';
+import { loginUserRequestActions } from '../../../../state/actions/requests/loginUser/getLoginUser.actions';
+import { loginUserSagaAction } from '../../../../state/actions/sagas';
+
 
 const mapStateToProps = state => {
   return {
@@ -13,7 +16,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-onLogin: loginAction
+  onLogin: loginAction
+  // onLogin: loginUserSagaAction
 };
 
 export class LoginForm extends Component {
@@ -51,7 +55,10 @@ export class LoginForm extends Component {
         <TouchableOpacity>
           <Button
             title='Log In'
-            onPress={ onLogin({ userName: 'UserNAMEis', password: 'Allahis1'} ) }
+            onPress={ () => 
+            // onLogin
+            onLogin({ userName: 'UserNAMEis', password: 'Allahis1'} )
+            }
           />
         </TouchableOpacity>
         <Text> {this.props.username} </Text>

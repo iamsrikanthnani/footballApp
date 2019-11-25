@@ -22,7 +22,7 @@ export default App;
 // import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 // import { connect } from 'react-redux';
 // import ListItem from './src/components/ListItem/ListItem';
-// import { addPlace } from './src/STATE/actions/place';
+// import { addPlace } from './src/state/actions/place';
 
 // const mapStateToProps = state => {
 //   return {

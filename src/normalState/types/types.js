@@ -1,0 +1,1 @@
+export const LOGIN_USER_TYPE = 'SIGN_IN';

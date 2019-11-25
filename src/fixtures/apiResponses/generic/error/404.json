@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "errors": {
+    "errorMessage": "No message available",
+    "errorCode": 404
+  }
+}
