@@ -11,7 +11,10 @@ export class Login extends Component {
   render() {
     return (
       <View>
-        <LoginForm onPressAction={ () => LoginInUser('edbraouf@gmail.com') } />
+        <LoginForm onPressAction={ () => 
+          {}
+          // LoginInUser('edbraouf@gmail.com')
+        } />
         <TouchableOpacity>
           <Button title='Become player >' onPress={ () => this.props.navigation.navigate('Signup') }></Button>
         </TouchableOpacity>  

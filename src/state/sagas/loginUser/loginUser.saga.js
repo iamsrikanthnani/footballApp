@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { loginUserSagaType } from '../../types/sagas';
 import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
-import { loginUserRequest } from '../../../services/loginUser/loginUser.service';
-import { getUserCredentials } from '../../../services/authentication/userCredentials';
+// import { loginUserRequest } from '../../../services/loginUser/loginUser.service';
+// import { getUserCredentials } from '../../../services/authentication/userCredentials';
 // import { LOGIN_USER_TYPE } from '../../../normalState/types/types';
 import { LoginInUser } from '../../../components/authentication/Login/Login';
 
@@ -25,7 +25,6 @@ export function* loginUserWorkerSaga() {
     console.log('Failed');
      yield put(loginUserRequestActions.fail(error));
    }
-  //  yield put({ type: 'TestTYpe', payload: { newUserName: 'USERname', newPassword: 'PASSword' } });
 }
 
 // function* loginSaga(email, password) {

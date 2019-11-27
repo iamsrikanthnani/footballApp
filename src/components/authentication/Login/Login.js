@@ -10,6 +10,6 @@ export const LoginInUser = async (username, password) => {
     // props.navigation.navigate('Profile');
     // this.props.navigation.navigate('Profile');
   } catch (err) {
-  console.log('error signing in..', err)
+    console.log('error signing in..', err)
   }
 };
