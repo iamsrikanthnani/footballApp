@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import styles from './LoginForm.style'
-import { loginAction } from '../../../../normalState/actions/login';
 import { loginUserRequestActions } from '../../../../state/actions/requests/loginUser/getLoginUser.actions';
 import { loginUserSagaAction } from '../../../../state/actions/sagas';
 
@@ -10,14 +9,14 @@ import { loginUserSagaAction } from '../../../../state/actions/sagas';
 const mapStateToProps = state => {
   return {
     // username: state.userName,
-    username: state.login.userName,
-    password: state.login.password
+    username: state.login.newUserName,
+    password: state.login.newPassword
   }
 };
 
 const mapDispatchToProps = {
-  onLogin: loginAction
-  // onLogin: loginUserSagaAction
+  onLoginloginUserAction: loginUserSagaAction
+  // onLoginloginUserAction: loginUserSagaAction
 };
 
 export class LoginForm extends Component {
@@ -34,7 +33,7 @@ export class LoginForm extends Component {
   }
 
   render() {
-    const { onLogin, footer, } = this.props;
+    // const { this.propsonLoginloginUserAction, footer, } = this.props;
     return (
       <View style={ styles.container }>
       <View style={ styles.form }>
@@ -56,15 +55,14 @@ export class LoginForm extends Component {
           <Button
             title='Log In'
             onPress={ () => 
-            // onLogin
-            onLogin({ userName: 'UserNAMEis', password: 'Allahis1'} )
+            this.props.onLoginloginUserAction({ userName: 'edbraouf@gmail.com', password: 'Allahis1'})
             }
           />
         </TouchableOpacity>
         <Text> {this.props.username} </Text>
         <Text> {this.props.password} </Text>
         
-        { footer }
+        { this.props.footer }
         </View>
       </View>
     ) 

@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Button } from 'react-native'
 import LoginForm from './loginForm/LoginForm'
 import { withNavigation } from 'react-navigation';
+import { LoginInUser } from '../../../components/authentication/Login/Login';
 
 // import awsConfig from '../../../AWSconfiguration/awsConfig';
 // import { Auth } from '../../../../node_modules/aws-amplify';
-import { onClickSigIn } from '../../../components/authentication/Login/Login';
-
 
 export class Login extends Component {
   render() {
     return (
       <View>
-        <LoginForm onPressAction={ () => onClickSigIn('edbraouf@gmail.com',) } />
+        <LoginForm onPressAction={ () => LoginInUser('edbraouf@gmail.com') } />
         <TouchableOpacity>
           <Button title='Become player >' onPress={ () => this.props.navigation.navigate('Signup') }></Button>
         </TouchableOpacity>  
