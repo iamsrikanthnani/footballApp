@@ -1,57 +1,31 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import styles from './LoginForm.style'
-import { loginUserRequestActions } from '../../../../state/actions/requests/loginUser/getLoginUser.actions';
-import { loginUserSagaAction } from '../../../../state/actions/sagas';
+import Profile from '../../../profile/Profile';
 
-
-const mapStateToProps = state => {
-  return {
-    username: state.newUserName,
-    password: state.newPassword,
-    isWaiting: state.Authentication.loginUser.isWaiting,
-  }
+const state = {
+  userName: '',
+  password: 'Allahis1',
+  placeName: '',
 };
 
-const mapDispatchToProps = {
-  loginUserAction: loginUserSagaAction
-};
-
-export class LoginForm extends Component {
-
-  state = {
-    userName: '',
-    password: 'Allahis1'
-  };
-
-  placeNameChangeHandler = (value) => {
+  /* placeNameChangeHandler = (value) => {
     this.setState({
       userName: value
     });
-  }
+  } */
 
-
-  onLoginPress = () => {
-    this.props.loginUserAction({ userName: 'edbraouf@gmail.com', password: 'Allahis1'})
-    // this.props.isUserVerified
-    /* true && this.props.navigation.navigate('Profile') */
-  }
-
-  render() {
-    // const { this.propsonLoginloginUserAction, footer, } = this.props;
-    return (
-      <View style={ styles.container }>
+const LoginForm = props => {
+  console.log(props);
+  return (
+    <View style={ styles.container }>
       <View style={ styles.form }>
         <Text> Log in Screen </Text>
         <TextInput
-          // placeholder='User Name'
-          // autoCapitalize='none'
-
+          autoCapitalize='none'
           placeholder = "User name"
-          // style = { styles.placeInput }
-          value = { this.state.placeName }
-          onChangeText = { this.placeNameChangeHandler }
+          value = { state.placeName }
+          // onChangeText = { placeNameChangeHandler }
         />
         <TextInput
           placeholder='Password'
@@ -61,19 +35,21 @@ export class LoginForm extends Component {
           <Button
             title='Log In'
             onPress={ () => 
-              this.onLoginPress()
+              props.onLoginPress()
             }
           />
         </TouchableOpacity>
-        <Text> {this.props.username} </Text>
-        <Text> {this.props.password} </Text>
-        <Text> {this.props.isWaiting && 'WAITING...'} </Text>
+        <Text> {props.username} </Text>
+        <Text> {props.isWaiting && 'WAITING...'} </Text>
 
-        { this.props.footer }
+        <Button title='Test text' onPress={ props.showModal } />
+
+        { props.footer }
         </View>
       </View>
-    ) 
-  }
+
+  )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm
+

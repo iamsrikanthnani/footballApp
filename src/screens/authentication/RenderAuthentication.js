@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Button } from 'react-native';
 import styles from './RenderAuthenticationScreens.style'
-import LoginScreen from './login/Login'
+import LoginScreen from './login/LoginScreen'
 
 class RenderAuthentication extends Component {
   render() {

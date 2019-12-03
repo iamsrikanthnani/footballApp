@@ -1,4 +1,3 @@
 export default {
-  LOGIN_USER: 'https://google.com',
-  GET_PROFILE_INFO: 'https://google.com',
+  LOGIN_USER: 'https://cognito-idp.us-east-2.amazonaws.com/',
 };

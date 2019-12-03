@@ -1,21 +1,37 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import React from 'react';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { loginUserSagaType } from '../../types/sagas';
 import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
-import { LoginInUser } from '../../../components/authentication/Login/Login';
 import NavigationServices from '../../../navigation/navigationServices';
+import { LoginInUserMethod } from '../../../components/authentication/Login/Login';
+import { selectUserLogInisWaiting, isUserVerified } from '../../selectors/Authentication/LoginSelectors';
+import { showModalAction } from '../../actions/ModalActions/modalActions';
+import Signup from '../../../screens/authentication/signup/Signup';
 
 export default function* loginUserWatcherSaga() {
   yield takeLatest(loginUserSagaType, loginUserWorkerSaga);
 }
 
-
-export function* loginUserWorkerSaga() {
+export function* loginUserWorkerSaga({payload}) {
    yield put(loginUserRequestActions.start());
    try {
-    const loginData = yield call(LoginInUser, 'edbraouf@gmail.com', 'Allahis1');
-    yield console.log('Succeeded');
-    yield put(loginUserRequestActions.succeed(loginData));
-    yield call(NavigationServices.navigate, 'Profile');     
+    const loginSuccessData = yield call(LoginInUserMethod, payload.username, payload.password);
+    
+    // TODO: Place holder //
+    // const loginSuccessData = true;
+    // yield console.log(loginSuccessData, 'As a place holder for now!');
+
+    yield put(loginUserRequestActions.succeed(loginSuccessData));
+    
+    const isVerified = yield select(isUserVerified)
+
+    // yield console.log('Checking if verified: ', isVerified);
+
+    if(isVerified) {
+      yield put(showModalAction(<Signup />))
+    } else {
+      yield call(NavigationServices.navigate, 'Profile');
+    }
    } catch (error) {
     console.log('LoginUser Failed', error);
      yield put(loginUserRequestActions.fail(error));

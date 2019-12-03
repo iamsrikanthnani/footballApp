@@ -5,7 +5,7 @@ import SignupForm from './signupform/SignupForm'
 import awsConfig from '../../../AWSconfiguration/awsConfig'
 import { Auth } from '../../../../node_modules/aws-amplify';
 
-export class Signup extends Component {
+class Signup extends Component {
   /* static navigationOptions = {
     title: 'myHome',
   }; */
@@ -55,8 +55,6 @@ export class Signup extends Component {
 
 
   SignUpConfirmation = () => {
-  // const userNAme = 'edbraouf@gmail';
-  // const confirmationcode = '285141';
   return (
     <View>
       <TextInput

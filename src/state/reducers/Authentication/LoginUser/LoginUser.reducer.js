@@ -1,5 +1,5 @@
 // // import { has } from 'lodash';
-// import { loginCredentialsType } from '../../../types/Authentication/Login/LoginCredentials';
+// import { loginCredentialsType } from '../../../types/Authentication/LoginScreen/LoginCredentials';
 
 // const initialState = { isLoggedIn: false, name: '' }
 
