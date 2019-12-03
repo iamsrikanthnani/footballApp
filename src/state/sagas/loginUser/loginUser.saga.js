@@ -1,15 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { loginUserSagaType } from '../../types/sagas';
 import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
-import { loginUserRequest } from '../../../services/loginUser/loginUser.service';
-// import { getUserCredentials } from '../../../services/authentication/userCredentials';
-// import { LOGIN_USER_TYPE } from '../../../normalState/types/types';
 import { LoginInUser } from '../../../components/authentication/Login/Login';
-import navigationServices from '../../../navigation/navigationServices';
-import navigationActions from '../../../navigation/navigationActions';
-import { loginCredentialsAction } from '../../actions/Authentication/Login/LoginCredentials';
-import { Auth } from '../../../../node_modules/aws-amplify';
-
+import NavigationServices from '../../../navigation/navigationServices';
 
 export default function* loginUserWatcherSaga() {
   yield takeLatest(loginUserSagaType, loginUserWorkerSaga);
@@ -17,29 +10,14 @@ export default function* loginUserWatcherSaga() {
 
 
 export function* loginUserWorkerSaga() {
-
    yield put(loginUserRequestActions.start());
-  //  yield put({ type: 'LOGIN_REQUESTING'})
-    // const userCredentials = yield call(getUserCredentials);
-    // console.log('Started!!!');
    try {
     const loginData = yield call(LoginInUser, 'edbraouf@gmail.com', 'Allahis1');
-    // yield call(Auth.signIn, 'edbraouf@gmail.com', 'Allahis1');
-    // const loginData = yield call(returnObj);
     yield console.log('Succeeded');
-  
-    // yield put(navigationActions.navigate({ routeName: 'Profile' }))
-    // yield put(navigationActions.navigate({ routeName: 'Signup'  }));
-    // yield put(navigationActions.navigate({ routeName: 'Profile' }));
-    //  yield put(loginCredentialsAction({ name: 'Ahmed TEST' }));
     yield put(loginUserRequestActions.succeed(loginData));
-    // yield put(navigationActions.navigate({ routeName: 'Profile' }));
-    // yield call(navigationServices.navigate({ routeName: 'Profile' }));
-    
-    //  yield put({type: 'LOGIN_SUCCESS', info:{ nanme:'ahmed', age: 29, }})
-     
+    yield call(NavigationServices.navigate, 'Profile');     
    } catch (error) {
-    console.log('Failed');
+    console.log('LoginUser Failed', error);
      yield put(loginUserRequestActions.fail(error));
    }
 }

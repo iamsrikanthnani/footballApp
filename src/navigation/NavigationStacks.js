@@ -1,41 +1,24 @@
+import React, { Component } from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import LogInScreen from '../screens/authentication/login/Login';
 import SignUpScreen from '../screens/authentication/signup/Signup';
 import ProfileScreen from '../screens/profile/Profile';
-import FeedScreen from '../screens/feed/Feed';
 import RenderAuthentication from '../screens/authentication/RenderAuthentication';
 
-
-
-// const differentStack = (routeName, screenName, titleName) => ({
-//   routeName: { screen: screenName },
-// },
-// {
-//   //For React Navigation 2.+ change defaultNavigationOptions->navigationOptions
-//   defaultNavigationOptions: {
-//     headerStyle: {
-//       backgroundColor: 'red',
-//     },
-//     headerTintColor: '#FFFFFF',
-//     title: titleName,
-//   },
-// });
+import NavigationService from './navigationServices';
 
 const LoginStack = createStackNavigator(
   {
-    //Defination of Navigaton from home screen
     RenderAuthentication: { screen: RenderAuthentication },  
     Profile: { screen: ProfileScreen },
     Login: { screen: LogInScreen },
     Signup: { screen: SignUpScreen },
-    
   },
   {
     initialRouteName: 'RenderAuthentication'
   },
   {
-    //For React Navigation 2.+ change defaultNavigationOptions->navigationOptions
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: '#42f44b',
@@ -47,4 +30,14 @@ const LoginStack = createStackNavigator(
 );
 const ScreensNavigator = createAppContainer(LoginStack);
 
-export default ScreensNavigator;
+export default class Nav extends Component{
+    render() {
+        return (
+            <ScreensNavigator
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+        )
+    }
+}
