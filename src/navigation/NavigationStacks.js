@@ -46,4 +46,5 @@ const LoginStack = createStackNavigator(
   }
 );
 const ScreensNavigator = createAppContainer(LoginStack);
+
 export default ScreensNavigator;

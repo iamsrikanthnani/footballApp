@@ -8,15 +8,14 @@ import { loginUserSagaAction } from '../../../../state/actions/sagas';
 
 const mapStateToProps = state => {
   return {
-    // username: state.userName,
-    username: state.login.newUserName,
-    password: state.login.newPassword
+    username: state.newUserName,
+    password: state.newPassword,
+    isWaiting: state.Authentication.loginUser.isWaiting,
   }
 };
 
 const mapDispatchToProps = {
-  onLoginloginUserAction: loginUserSagaAction
-  // onLoginloginUserAction: loginUserSagaAction
+  loginUserAction: loginUserSagaAction
 };
 
 export class LoginForm extends Component {
@@ -30,6 +29,13 @@ export class LoginForm extends Component {
     this.setState({
       userName: value
     });
+  }
+
+
+  onLoginPress = () => {
+    this.props.loginUserAction({ userName: 'edbraouf@gmail.com', password: 'Allahis1'})
+    // this.props.isUserVerified
+    /* true && this.props.navigation.navigate('Profile') */
   }
 
   render() {
@@ -55,13 +61,14 @@ export class LoginForm extends Component {
           <Button
             title='Log In'
             onPress={ () => 
-            this.props.onLoginloginUserAction({ userName: 'edbraouf@gmail.com', password: 'Allahis1'})
+              this.onLoginPress()
             }
           />
         </TouchableOpacity>
         <Text> {this.props.username} </Text>
         <Text> {this.props.password} </Text>
-        
+        <Text> {this.props.isWaiting && 'WAITING...'} </Text>
+
         { this.props.footer }
         </View>
       </View>
