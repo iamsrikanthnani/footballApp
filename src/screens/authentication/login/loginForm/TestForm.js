@@ -7,7 +7,10 @@ const submit = values => {
 }
 
 const renderInput = ({ input: { onChange, ...restInput }}) => {
-  return <TextInput onChangeText={onChange} {...restInput} />
+  return <TextInput
+            onChangeText={onChange}
+            // {...restInput}
+          />
 }
 
 const Form = props => {
