@@ -6,18 +6,21 @@ import SignUpScreen from '../screens/authentication/signup/Signup';
 import ProfileScreen from '../screens/profile/Profile';
 import RenderAuthentication from '../screens/authentication/RenderAuthentication';
 
-
 import NavigationService from './navigationServices';
+import SimpleFormScreen from '../screens/authentication/login/loginForm/TestForm';
+
+
 
 const LoginStack = createStackNavigator(
   {
+    SimpleForm: { screen: SimpleFormScreen },
     RenderAuthentication: { screen: RenderAuthentication },  
     Profile: { screen: ProfileScreen },
     Login: { screen: LogInScreen },
     Signup: { screen: SignUpScreen },
   },
   {
-    initialRouteName: 'RenderAuthentication'
+    initialRouteName: 'SimpleForm'
   },
   {
     defaultNavigationOptions: {

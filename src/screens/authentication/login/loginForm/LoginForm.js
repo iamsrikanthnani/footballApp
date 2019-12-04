@@ -16,7 +16,6 @@ const state = {
   } */
 
 const LoginForm = props => {
-  console.log(props);
   return (
     <View style={ styles.container }>
       <View style={ styles.form }>
