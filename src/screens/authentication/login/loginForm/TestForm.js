@@ -1,14 +1,29 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Field, reduxForm } from 'redux-form';
 
-export class TestForm extends Component {
-  render() {
-    return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    )
-  }
+const submit = values => {
+  console.log('submitting form', values)
 }
 
-export default TestForm
+const renderInput = ({ input: { onChange, ...restInput }}) => {
+  return <TextInput onChangeText={onChange} {...restInput} />
+}
+
+const Form = props => {
+  const { handleSubmit } = props
+
+  return (
+    <View >
+      <Text>Email:</Text>
+      <Field name="email" component={renderInput} />
+      <TouchableOpacity onPress={handleSubmit(submit)}>
+        <Text>Submit</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export default reduxForm({
+  form: 'test'
+})(Form)
