@@ -83,7 +83,7 @@ function addConfigData() {
   if (envContent.includes(serviceKey)) {
     console.log('Warning: Config already exists, ignoring'); // eslint-disable-line no-console
   } else {
-    envContent += `${serviceKey}=${serviceURL.replace('-tst.jbhunt.com', '.jbhunt.com')}\n`;
+    envContent += `${serviceKey}=${serviceURL.replace('-tst.serviceURL.com', '.serviceURL.com')}\n`;
     fs.writeFileSync('.env', envContent);
   }
   let tmpEnvContent = fs.readFileSync('.env.test', 'utf8');
