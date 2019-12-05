@@ -33,9 +33,6 @@ import React from 'react'
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import styles from './SignupForm.style';
 
-import awsConfig from '../../../../AWSconfiguration/awsConfig';
-import { Auth } from '../../../../../node_modules/aws-amplify';
-
 const SignupForm = (props) => {
   return (
     <View
@@ -62,7 +59,7 @@ const SignupForm = (props) => {
         <TouchableOpacity>
           <Button
             title='Join'
-            onPress={ props.onPressJoin }
+            onPress={ props.signupUser }
           />
         </TouchableOpacity>
 

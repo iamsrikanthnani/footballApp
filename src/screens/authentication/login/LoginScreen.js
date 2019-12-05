@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Button } from 'react-native'
 import LoginForm from './loginForm/LoginForm'
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { loginUserSagaAction } from '../../../state/actions/sagas';
+import { loginUserSagaAction, signupUserSagaAction } from '../../../state/actions/sagas';
 import { selectUserLogInisWaiting, isUserVerified } from '../../../state/selectors/Authentication/LoginSelectors';
 import ModalScreen from '../../../commonElements/Modal/Modal';
 import { showModalAction } from '../../../state/actions/ModalActions/modalActions';
@@ -31,7 +31,7 @@ state = {
 }
 
 render() {
-  const { loginUserAction, isWaiting } = this.props;
+  const { loginUserAction, navigation, isWaiting } = this.props;
     return (
       <View>
       <ModalScreen />
@@ -41,11 +41,12 @@ render() {
           onLoginPress={ () => loginUserAction({ username: 'edbraouf@gmail.com', password: 'Allahis1' }) }
           footer={
             <TouchableOpacity>
-              <Button title='Become player >' onPress={ () => this.props.navigation.navigate('Signup') }></Button>
+              <Button title='Become player >' onPress={ () => navigation.navigate('Signup') }></Button>
             </TouchableOpacity>
           }
           showModal={ () => this.props.showModalAction(<SignupScreen />) }
         />
+
       </View>
     )
   }

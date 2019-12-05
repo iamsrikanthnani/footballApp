@@ -20,7 +20,7 @@ const LoginStack = createStackNavigator(
     Signup: { screen: SignUpScreen },
   },
   {
-    initialRouteName: 'SimpleForm'
+    initialRouteName: 'RenderAuthentication'
   },
   {
     defaultNavigationOptions: {

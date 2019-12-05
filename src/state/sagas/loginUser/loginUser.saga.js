@@ -1,27 +1,32 @@
 import React from 'react';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { loginUserSagaType } from '../../types/sagas';
+import { loginUserSagaType, signUpUserSagaType } from '../../types/sagas';
 import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
 import NavigationServices from '../../../navigation/navigationServices';
-import { LoginInUserMethod } from '../../../components/authentication/Login/Login';
-import { selectUserLogInisWaiting, isUserVerified } from '../../selectors/Authentication/LoginSelectors';
+import { LoginInUserMethod, signupUserMethod } from '../../../components/authentication/Login/Login';
+import { isUserVerified } from '../../selectors/Authentication/LoginSelectors';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
 import Signup from '../../../screens/authentication/signup/Signup';
 
+
 export default function* loginUserWatcherSaga() {
   yield takeLatest(loginUserSagaType, loginUserWorkerSaga);
+  yield takeLatest(signUpUserSagaType, signUpUserWorkerSaga)
 }
 
 export function* loginUserWorkerSaga({payload}) {
-   yield put(loginUserRequestActions.start());
+  yield put(loginUserRequestActions.start());
+  yield put({ type: 'REQUESTING'});
+
    try {
     const loginSuccessData = yield call(LoginInUserMethod, payload.username, payload.password);
     
     // TODO: Place holder //
     // const loginSuccessData = true;
     // yield console.log(loginSuccessData, 'As a place holder for now!');
+    yield put({type: 'LOGIN_SUCCESS', payload: loginSuccessData});
 
-    yield put(loginUserRequestActions.succeed(loginSuccessData));
+    // yield put(loginUserRequestActions.succeed(loginSuccessData));
     
     const isVerified = yield select(isUserVerified)
 
@@ -34,25 +39,27 @@ export function* loginUserWorkerSaga({payload}) {
     }
    } catch (error) {
     console.log('LoginUser Failed', error);
-     yield put(loginUserRequestActions.fail(error));
+    //  yield put(loginUserRequestActions.fail(error));
+    yield put({ type: 'LOGIN_ERROR', payload: error })
    }
 }
 
+// Sign up saga worker //
+export function* signUpUserWorkerSaga({payload}){
+  yield put({ type: 'REQUESTING' });
+  try {
+    const signupSuccessData = yield call(signupUserMethod, 'ahmedbas1990@gmail.com', 'Allahis1');
+    yield put({ type: 'SIGNUP_SUCCESS', payload: signupSuccessData });
+    yield put(showModalAction(<Signup />));
+  } catch (error) {
+    console.log('Sign up error is ', error);
+    yield put({ type: 'SIGNUP_ERROR', payload: error })
+  }
+};
 
-
-
-// function* loginSaga(email, password) {
-//   try {
-//     const data = yield call(Auth.signIn, email, password);
-//     yield put(loginSuccess(data));
-//   }
-//   catch(error) {
-//     yield put(loginFailure(error));
-//   }
-// }
-
-
-
+// export function* confirmUserWorkerSaga({payload}){
+//   yield
+// };
 
 
 // import * as auth from 'aws-cognito-promises'
@@ -75,7 +82,7 @@ export function* loginUserWorkerSaga({payload}) {
 
 // function* init(action) {
 //   yield put({
-//     type: actions.AUTH_SET_STATE,
+//     type: 'LOGIN_REQUESTING',
 //     payload: {
 //       ...defaultState
 //     }
@@ -270,12 +277,12 @@ export function* loginUserWorkerSaga({payload}) {
 // }
 
 // export default function* sagas() {
-//   yield takeLatest(actions.AUTH_INIT, init)
-//   yield takeLatest(actions.AUTH_GET_USER, getUser)
-//   yield takeLatest(actions.AUTH_SIGN_UP, signUp)
-//   yield takeLatest(actions.AUTH_SIGN_IN, signIn)
-//   yield takeLatest(actions.AUTH_SIGN_OUT, signOut)
-//   yield takeLatest(actions.AUTH_FORGOT_PASSWORD, forgotPassword)
-//   yield takeLatest(actions.AUTH_CHANGE_PASSWORD, changePassword)
-//   yield takeLatest(actions.AUTH_COMPLETE_NEW_PASSWORD, completeNewPassword)
+//   yield takeLatest('LOGIN_REQUESTING', init)
+  // yield takeLatest(actions.AUTH_GET_USER, getUser)
+  // yield takeLatest(actions.AUTH_SIGN_UP, signUp)
+  // yield takeLatest(actions.AUTH_SIGN_IN, signIn)
+  // yield takeLatest(actions.AUTH_SIGN_OUT, signOut)
+  // yield takeLatest(actions.AUTH_FORGOT_PASSWORD, forgotPassword)
+  // yield takeLatest(actions.AUTH_CHANGE_PASSWORD, changePassword)
+  // yield takeLatest(actions.AUTH_COMPLETE_NEW_PASSWORD, completeNewPassword)
 // }
