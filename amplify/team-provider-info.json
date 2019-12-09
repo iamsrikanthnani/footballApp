@@ -15,5 +15,23 @@
                 "footballappbe5efa29": {}
             }
         }
+    },
+    "fbenvmnt": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-footballapp-fbenvmnt-04259-authRole",
+            "UnauthRoleArn": "arn:aws:iam::864007670970:role/amplify-footballapp-fbenvmnt-04259-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::864007670970:role/amplify-footballapp-fbenvmnt-04259-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-footballapp-fbenvmnt-04259-deployment",
+            "UnauthRoleName": "amplify-footballapp-fbenvmnt-04259-unauthRole",
+            "StackName": "amplify-footballapp-fbenvmnt-04259",
+            "StackId": "arn:aws:cloudformation:us-east-2:864007670970:stack/amplify-footballapp-fbenvmnt-04259/d14e4f70-18bc-11ea-88df-0608930970a0",
+            "AmplifyAppId": "d3rrp60megm08o"
+        },
+        "categories": {
+            "auth": {
+                "footballappbe5efa29": {}
+            }
+        }
     }
 }

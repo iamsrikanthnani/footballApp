@@ -41,7 +41,7 @@ const LoginForm = props => {
         <Text> {props.username} </Text>
         <Text> {props.isWaiting && 'WAITING...'} </Text>
 
-        <Button title='Test text' onPress={ props.showModal } />
+        <Button title='Show the Modal' onPress={ props.showModal } />
 
         { props.footer }
         </View>

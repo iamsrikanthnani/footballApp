@@ -1,2 +1,3 @@
 export * from './loginUserService/loginUser.service';
-export * from './signupUserService/signupUserService';
+export * from './signupUserService/signupUser.service';
+export * from './signupUserService/signupConfirmation/signUpConfirmation';

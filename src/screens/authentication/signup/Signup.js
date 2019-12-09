@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Button, TextInput } from 'react-native';
 import { connect } from 'react-redux'
-import SignupForm from './signupform/SignupForm'
+import SignupForm from './signupForm/signupForm'
 import { signupUserSagaAction } from '../../../state/actions/sagas';
 
 const mapStateToProps = state => ({
@@ -18,9 +18,27 @@ class Signup extends Component {
   render() {
     // const { signUpUser } = this.props;
     return (
-        <SignupForm signupUser={ () => this.props.signUpUser({username: 'ahmedbas1990@gmail.com', password: 'Allahis1'}) } />   
+        <SignupForm signupUser={ () => this.props.signUpUser({username: 'edbraouf@gmail.com', password: 'Allahis1'}) } />   
     )
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+
+// import React, { Component } from 'react';
+// import { Text, View } from 'react-native';
+// // import SignupForm from './signupForm/signupForm'
+
+
+// export class Signup extends Component {
+//   render() {
+//     return (
+//       <View>
+//         <Text> textInComponent </Text>
+//         {/* <SignupForm /> */}
+//       </View>
+//     )
+//   }
+// }
+
+// export default Signup

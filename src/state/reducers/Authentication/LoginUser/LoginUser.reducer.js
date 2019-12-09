@@ -1,3 +1,67 @@
+import { userSessionType, loginSuccessType } from "../../../types/Authentication/Login/LoginTypes";
+
+
+
+// Working login reducer //
+const loginInitialState = {  
+  isRequesting: null,
+  error: null,
+  isUserSignedIn: null,
+  login_Result: null,
+  timestamp: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
+
+//   info: {},
+//   error: {},
+//   isSignedIn: states.AUTH_UNKNOWN,
+//   isConfirmed: states.AUTH_UNKNOWN,
+//   hasSignedUp: states.AUTH_UNKNOWN,
+//   hasSentCode: states.AUTH_UNKNOWN,
+//   hasChangedPassword: states.AUTH_UNKNOWN,
+//   passwordResetRequired: states.AUTH_UNKNOWN
+}
+
+export const loginUserReducer = (state = loginInitialState, action) => {  
+  const { type, payload } = action;
+  switch (type) {
+    // Set the isRequesting flag and append a message to be shown
+    case 'LOGIN_REQUESTING':
+      return {
+        ...state,
+        isRequesting: true,
+      }
+
+    // Successful?  Reset the login state.
+    case loginSuccessType:
+      return {
+        ...state,
+        error: null,
+        isRequesting: false,
+        isUserSignedIn: true,
+        login_Result: payload
+      }
+
+      case userSessionType:
+        return {
+        ...state,
+        error: null,
+        isRequesting: false,
+        isCurrentAuthenticationSuccessful: true,
+        CurrentUser_Session_Result: payload
+      }
+
+    case 'LOGIN_ERROR':
+      return {
+        ...state,
+        error: payload,
+        isRequesting: false,
+        isLoginSuccessful: false,
+      }
+    default:
+      return state
+  }
+};
+
+
 // // import { has } from 'lodash';
 // import { loginCredentialsType } from '../../../types/Authentication/LoginScreen/LoginCredentials';
 
@@ -59,80 +123,20 @@
 
 
 
-
-
-
-
-
-
-
-
-// Working login reducer //
-const loginInitialState = {  
-  isRequesting: null,
-  isSuccessful: null,
-  error: null,
-
-  value: null,
-  result: null,
-  timestamp: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
-
-//   info: {},
-//   error: {},
-//   isSignedIn: states.AUTH_UNKNOWN,
-//   isConfirmed: states.AUTH_UNKNOWN,
-//   hasSignedUp: states.AUTH_UNKNOWN,
-//   hasSentCode: states.AUTH_UNKNOWN,
-//   hasChangedPassword: states.AUTH_UNKNOWN,
-//   passwordResetRequired: states.AUTH_UNKNOWN
-}
-
-export const loginUserReducer = (state = loginInitialState, action) => {  
-  const { type, payload } = action;
-  switch (type) {
-    // Set the isRequesting flag and append a message to be shown
-    case 'LOGIN_REQUESTING':
-      return {
-        ...state,
-        isRequesting: true,
-      }
-
-    // Successful?  Reset the login state.
-    case 'LOGIN_SUCCESS':
-      return {
-        ...state,
-        error: null,
-        isRequesting: false,
-        isLoginSuccessful: true,
-        result: payload
-      }
-
-    case 'LOGIN_ERROR':
-      return {
-        ...state,
-        error: payload,
-        isRequesting: false,
-        isLoginSuccessful: false,
-      }
-    default:
-      return state
-  }
-}
-
 // export default TestReducer
 
 
 
 
-const signupInitialState = {  
-  isRequesting: null,
-  isSuccessful: null,
+// const signupInitialState = {  
+  /* isRequesting: null,
+  isSignUpSuccessful: null,
   error: null,
-
+  isUserConfirmed: null,
   value: null,
   result: null,
   timestamp: new Date(),
-
+ */
   //   info: {},
 //   error: {},
 //   isSignedIn: states.AUTH_UNKNOWN,
@@ -141,47 +145,65 @@ const signupInitialState = {
 //   hasSentCode: states.AUTH_UNKNOWN,
 //   hasChangedPassword: states.AUTH_UNKNOWN,
 //   passwordResetRequired: states.AUTH_UNKNOWN
-}
+// }
 
-export const signupUserReducer = (state = signupInitialState, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    // Set the isRequesting flag and append a message to be shown
-    case 'REQUESTING':
-      return {
-        ...state,
-        isRequesting: true,
-      }
+// export const signupUserReducer = (state = signupInitialState, action) => {
+//   const { type, payload } = action;
+//   switch (type) {
+//     // Set the isRequesting flag and append a message to be shown
+//     case 'REQUESTING':
+//       return {
+//         ...state,
+//         isRequesting: true,
+//       }
 
-    // Successful?  Reset the login state.
-    case 'SIGNUP_SUCCESS':
-      return {
-        ...state,
-        error: null,
-        isRequesting: false,
-        isSuccessful: true,
-        result: payload
-      }
+//     // Successful?  Reset the login state.
+//     case 'SIGNUP_SUCCESS':
+//       return {
+//         ...state,
+//         error: null,
+//         isRequesting: false,
+//         isSignUpSuccessful: true,
+//         result: payload
+//       }
 
-    case 'SIGNUP_ERROR':
-      return {
-        ...state,
-        error: payload,
-        isRequesting: false,
-        isSuccessful: false,
-      }
-    default:
-      return state
-  }
-}
+//     case 'SIGNUP_ERROR':
+//       return {
+//         ...state,
+//         error: payload,
+//         isRequesting: false,
+//         isSuccessful: false,
+//       }
+//     default:
+//       return state
+//   }
+// }
 
-// export default TestReducer
+// const userConfirmationState = {
+//   isUserConfirmed: null,
+//   // result: null
+// };
 
+// export const confirmSignUpReducer = (state = userConfirmationState, action) => {
+//   const { type, payload } = action;
+//   switch(type){
+//     case 'USER_CONFIRMATION_SUCCESS':
+//     return {
+//       ...state, 
 
-
-
-
-
+//       isUserConfirmed: payload === 'SUCCESS' ? true : false,
+//       result: payload
+//     }
+//     case 'USER_CONFIRMATION_ERROR':
+//       return {
+//         ...state,
+//         isUserConfirmed: false,
+//         ...payload
+//       }
+//       default: 
+//         return state
+//   }
+// };
 
 
 // import * as auth from 'aws-cognito-promises'

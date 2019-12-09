@@ -1,65 +1,77 @@
 import React from 'react';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { loginUserSagaType, signUpUserSagaType } from '../../types/sagas';
-import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
+import { loginUserSagaType, } from '../../types/sagas';
+// import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
 import NavigationServices from '../../../navigation/navigationServices';
-import { LoginInUserMethod, signupUserMethod } from '../../../components/authentication/Login/Login';
 import { isUserVerified } from '../../selectors/Authentication/LoginSelectors';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
-import Signup from '../../../screens/authentication/signup/Signup';
+import { loginUserService } from '../../../services/authentication/index';
+import { loginSuccessType } from '../../types/Authentication/Login/LoginTypes';
 
 
 export default function* loginUserWatcherSaga() {
-  yield takeLatest(loginUserSagaType, loginUserWorkerSaga);
-  yield takeLatest(signUpUserSagaType, signUpUserWorkerSaga)
+  yield takeLatest(loginUserSagaType, loginUserSagaWorker);
+  // yield takeLatest(signUpUserSagaType, signUpUserSagaWorker);
 }
 
-export function* loginUserWorkerSaga({payload}) {
-  yield put(loginUserRequestActions.start());
+export function* loginUserSagaWorker({payload}) {
+
   yield put({ type: 'REQUESTING'});
-
    try {
-    const loginSuccessData = yield call(LoginInUserMethod, payload.username, payload.password);
     
-    // TODO: Place holder //
-    // const loginSuccessData = true;
-    // yield console.log(loginSuccessData, 'As a place holder for now!');
-    yield put({type: 'LOGIN_SUCCESS', payload: loginSuccessData});
-
-    // yield put(loginUserRequestActions.succeed(loginSuccessData));
+    // loginUserService comes loaded with signInUserSession
+    const loginSuccessData = yield call(loginUserService, payload.username, payload.password);
+    yield console.log('loginSuccessData', loginSuccessData);
+    yield put({type: loginSuccessType, payload: loginSuccessData });
     
-    const isVerified = yield select(isUserVerified)
-
-    // yield console.log('Checking if verified: ', isVerified);
+    const isVerified = yield select(isUserVerified);
+    yield console.log('Checking if verified: ', isVerified);
 
     if(isVerified) {
-      yield put(showModalAction(<Signup />))
-    } else {
+      // Incase user didn't finish the profile setup [name, experience, bio, etc..], then i will add more logic in here //
+      // yield put(showModalAction(<Profile />))
       yield call(NavigationServices.navigate, 'Profile');
-    }
+    } 
    } catch (error) {
     console.log('LoginUser Failed', error);
-    //  yield put(loginUserRequestActions.fail(error));
+
+    if (error.code === 'UserNotConfirmedException') {
+      // We can re-send confirmation code incase user didntn't finish the initial email confirmation //
+
+      console.log('UserNotConfirmedException');
+  } else if (error.code === 'PasswordResetRequiredException') {
+      console.log('PasswordResetRequiredException');
+      // The error happens when the password is reset in the Cognito console
+      // In this case you need to call forgotPassword to reset the password
+  } else if (error.code === 'NotAuthorizedException') {
+      console.log('NotAuthorizedException');
+      // The error happens when the incorrect password is provided
+  } else if (error.code === 'UserNotFoundException') {
+    console.log('UserNotFoundException');
+      // The error happens when the supplied username/email does not exist in the Cognito user pool
+  } else {
+      console.log(error);
+  }
     yield put({ type: 'LOGIN_ERROR', payload: error })
    }
 }
 
-// Sign up saga worker //
-export function* signUpUserWorkerSaga({payload}){
-  yield put({ type: 'REQUESTING' });
-  try {
-    const signupSuccessData = yield call(signupUserMethod, 'ahmedbas1990@gmail.com', 'Allahis1');
-    yield put({ type: 'SIGNUP_SUCCESS', payload: signupSuccessData });
-    yield put(showModalAction(<Signup />));
-  } catch (error) {
-    console.log('Sign up error is ', error);
-    yield put({ type: 'SIGNUP_ERROR', payload: error })
-  }
-};
 
-// export function* confirmUserWorkerSaga({payload}){
-//   yield
-// };
+// export function* userConfirmationSagaWorker({payload}){
+//   yield put({ type: 'REQUESTING' });
+//     try {
+//     const { username, code } = payload;
+//       // if (code) {
+//       const confirmationData = yield call(userConfirmationService, username, code);
+//       console.log('Confirmed', confirmationData);
+//       yield put({ type: 'USER_CONFIRMATION_SUCCESS', payload: confirmationData });
+//     // }
+//   } catch (error) {
+//     console.log(error)
+//     yield put({ type: 'USER_CONFIRMATION_ERROR', error })
+//   }
+// }
+
 
 
 // import * as auth from 'aws-cognito-promises'
@@ -165,9 +177,11 @@ export function* signUpUserWorkerSaga({payload}){
 
 //   try {
 //     const { username, password, code } = action.payload
+// 
+//const onfirmationData = c     if (code) {
+  /* yield put({ type: 'USER_CONFIRMATION' })
 
-//     if (code) {
-//       yield call(auth.confirmation, username, code)
+      yield call(auth.confirmation, username, code) */
 //     }
 
     
