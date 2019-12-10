@@ -1,4 +1,5 @@
 import { userSessionType, loginSuccessType } from "../../../types/Authentication/Login/LoginTypes";
+import { requestingType, successType, failType } from "../../../types/genericTypes/Generic.types";
 
 
 
@@ -24,14 +25,14 @@ export const loginUserReducer = (state = loginInitialState, action) => {
   const { type, payload } = action;
   switch (type) {
     // Set the isRequesting flag and append a message to be shown
-    case 'LOGIN_REQUESTING':
+    case requestingType:
       return {
         ...state,
         isRequesting: true,
       }
 
     // Successful?  Reset the login state.
-    case loginSuccessType:
+    case successType:
       return {
         ...state,
         error: null,
@@ -49,7 +50,7 @@ export const loginUserReducer = (state = loginInitialState, action) => {
         CurrentUser_Session_Result: payload
       }
 
-    case 'LOGIN_ERROR':
+    case failType:
       return {
         ...state,
         error: payload,

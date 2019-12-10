@@ -1,3 +1,5 @@
-export const requestingType = 'REQUESTING';
-export const successType = 'SUCCESS';
-export const failType = 'FAIL';
+const namespace = 'Authentication'
+
+export const requestingType = `${namespace}/REQUESTING`;
+export const successType = `${namespace}/SUCCESS`;
+export const failType = `${namespace}/FAIL`;

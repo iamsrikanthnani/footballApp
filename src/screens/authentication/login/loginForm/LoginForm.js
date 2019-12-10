@@ -1,54 +1,57 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
-import styles from './LoginForm.style'
-import Profile from '../../../profile/Profile';
+import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import styles from './LoginForm.style';
+import { Field, reduxForm } from 'redux-form';
 
-const state = {
-  userName: '',
-  password: 'Allahis1',
-  placeName: '',
-};
+const submit = values => {
+  console.log('submitting loginForm', values)
+}
 
-  /* placeNameChangeHandler = (value) => {
-    this.setState({
-      userName: value
-    });
-  } */
+const renderInput = ({input: { onChange }}) => {
+  return <TextInput
+            onChangeText={onChange}
+            placeholder='Type Here!'
+            //  {...restInput}
+          />
+}
 
 const LoginForm = props => {
+  const { handleSubmit, formValue } = props;
   return (
-    <View style={ styles.container }>
-      <View style={ styles.form }>
-        <Text> Log in Screen </Text>
-        <TextInput
-          autoCapitalize='none'
-          placeholder = "User name"
-          value = { state.placeName }
-          // onChangeText = { placeNameChangeHandler }
+    <View>
+  
+      <View>
+        <Field
+          name='loginEmail'
+          component={ renderInput }
+          // validate={ required }
+          // keyboardType='numeric'
+          placeHolder='User name'
         />
-        <TextInput
-          placeholder='Password'
-          secureTextEntry
+
+        <Field
+          name='loginPassword'
+          component={ renderInput }
+          // validate={ required }
+          // keyboardType='numeric'
+          placeHolder='Password'
         />
-        <TouchableOpacity>
-          <Button
-            title='Log In'
-            onPress={ () => 
-              props.onLoginPress()
-            }
-          />
-        </TouchableOpacity>
-        <Text> {props.username} </Text>
-        <Text> {props.isWaiting && 'WAITING...'} </Text>
-
-        <Button title='Show the Modal' onPress={ props.showModal } />
-
-        { props.footer }
-        </View>
+      </View>
+      
+      <View>
+          <TouchableOpacity>
+            <Button title='Submit' onPress={ props.handleSubmit }/>
+          </TouchableOpacity>
       </View>
 
+      <Text>{ props.loginValue }</Text>
+      <Text>{props.passwordValue}</Text>
+    </View>
   )
 }
 
-export default LoginForm
+export default reduxForm({
+  form: 'loginFormName'
+})(LoginForm)
+
 

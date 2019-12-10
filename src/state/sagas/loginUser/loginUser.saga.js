@@ -7,6 +7,7 @@ import { isUserVerified } from '../../selectors/Authentication/LoginSelectors';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
 import { loginUserService } from '../../../services/authentication/index';
 import { loginSuccessType } from '../../types/Authentication/Login/LoginTypes';
+import { genericRequestingAction, genericSuccessAction, genericFailAction } from '../../actions/genericActions/Generic.actions';
 
 
 export default function* loginUserWatcherSaga() {
@@ -15,14 +16,17 @@ export default function* loginUserWatcherSaga() {
 }
 
 export function* loginUserSagaWorker({payload}) {
+  
+  yield put(genericRequestingAction());
 
-  yield put({ type: 'REQUESTING'});
    try {
     
     // loginUserService comes loaded with signInUserSession
     const loginSuccessData = yield call(loginUserService, payload.username, payload.password);
     yield console.log('loginSuccessData', loginSuccessData);
-    yield put({type: loginSuccessType, payload: loginSuccessData });
+    // yield put({type: loginSuccessType, payload: loginSuccessData });
+
+    yield put(genericSuccessAction(loginSuccessData));
     
     const isVerified = yield select(isUserVerified);
     yield console.log('Checking if verified: ', isVerified);
@@ -52,7 +56,7 @@ export function* loginUserSagaWorker({payload}) {
   } else {
       console.log(error);
   }
-    yield put({ type: 'LOGIN_ERROR', payload: error })
+    yield put(genericFailAction(error));
    }
 }
 
