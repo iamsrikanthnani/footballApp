@@ -17,7 +17,7 @@ export function* signUpUserSagaWorker({payload}){
     yield put({ type: 'SIGNUP_SUCCESS', payload: signupSuccessData });
     yield put(showModalAction(<Profile />));
   } catch (error) {
-    console.log('Sign up error is ', error);
+    // console.log('Sign up error is ', error);
     yield put({ type: 'SIGNUP_ERROR', payload: error })
   }
 }

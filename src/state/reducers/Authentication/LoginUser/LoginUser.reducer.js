@@ -29,6 +29,9 @@ export const loginUserReducer = (state = loginInitialState, action) => {
       return {
         ...state,
         isRequesting: true,
+        error: null,
+        isUserSignedIn: null,
+        login_Result: null,
       }
 
     // Successful?  Reset the login state.

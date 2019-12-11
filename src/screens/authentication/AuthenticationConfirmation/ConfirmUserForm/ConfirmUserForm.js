@@ -2,10 +2,6 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
-//it = values => {
-//   console.log('submitting form', values)
-// }
-
 const renderInput = ({ input: { onChange, ...restInput }}) => {
   return<TextInput
             onChangeText={onChange}

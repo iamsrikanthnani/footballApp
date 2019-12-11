@@ -3,7 +3,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { loginUserSagaType, } from '../../types/sagas';
 // import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
 import NavigationServices from '../../../navigation/navigationServices';
-import { isUserVerified } from '../../selectors/Authentication/LoginSelectors';
+import { isUserVerified, isUserHasAccessToken } from '../../selectors/Authentication/LoginSelectors';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
 import { loginUserService } from '../../../services/authentication/index';
 import { loginSuccessType } from '../../types/Authentication/Login/LoginTypes';
@@ -23,15 +23,16 @@ export function* loginUserSagaWorker({payload}) {
     
     // loginUserService comes loaded with signInUserSession
     const loginSuccessData = yield call(loginUserService, payload.username, payload.password);
-    yield console.log('loginSuccessData', loginSuccessData);
+    // yield console.log('loginSuccessData', loginSuccessData);
     // yield put({type: loginSuccessType, payload: loginSuccessData });
 
     yield put(genericSuccessAction(loginSuccessData));
     
     const isVerified = yield select(isUserVerified);
-    yield console.log('Checking if verified: ', isVerified);
+    const userAccessToken = yield select(isUserHasAccessToken);
+    // yield console.log('Checking if verified: ', isVerified);
 
-    if(isVerified) {
+    if(isVerified && userAccessToken) {
       // Incase user didn't finish the profile setup [name, experience, bio, etc..], then i will add more logic in here //
       // yield put(showModalAction(<Profile />))
       yield call(NavigationServices.navigate, 'Profile');

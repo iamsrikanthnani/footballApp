@@ -1,57 +1,79 @@
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
 import styles from './LoginForm.style';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reset, reduxForm } from 'redux-form';
 
-const submit = values => {
-  console.log('submitting loginForm', values)
-}
-
-const renderInput = ({input: { onChange }}) => {
+const userNameRenderInput = ({input: { onChange }}) => {
   return <TextInput
             onChangeText={onChange}
-            placeholder='Type Here!'
+            placeholder='example@email.com'
+            autoCapitalize='none'
+            keyboardType='email-address'
+            // keyboardType='numeric'
+            //  {...restInput}
+          />
+        }
+
+
+const passwordRenderInput = ({input: { onChange }}) => {
+  return <TextInput
+            onChangeText={onChange}
+            placeholder='Password'
+            autoCapitalize='none'
+            secureTextEntry
             //  {...restInput}
           />
 }
 
 const LoginForm = props => {
-  const { handleSubmit, formValue } = props;
+  const { handleSubmit, loginPending } = props;
   return (
     <View>
   
       <View>
         <Field
           name='loginEmail'
-          component={ renderInput }
+          component={ userNameRenderInput }
           // validate={ required }
-          // keyboardType='numeric'
-          placeHolder='User name'
         />
 
         <Field
           name='loginPassword'
-          component={ renderInput }
+          component={ passwordRenderInput }
           // validate={ required }
-          // keyboardType='numeric'
-          placeHolder='Password'
         />
       </View>
       
       <View>
           <TouchableOpacity>
-            <Button title='Submit' onPress={ props.handleSubmit }/>
+            <Button title='Log In' onPress={ handleSubmit }/>
           </TouchableOpacity>
       </View>
 
-      <Text>{ props.loginValue }</Text>
-      <Text>{props.passwordValue}</Text>
+      <Text> { props.loginError } </Text>
+
+      {/* <View> */}
+      <Text>{ (loginPending && 'Logging you In...') }</Text>
+      {/* </View> */}
+
+      {/* <Text onPress={props.showModal} >ShowModal</Text> */}
+
+
     </View>
   )
 }
 
+
+const afterSubmit = (result, dispatch) => dispatch(reset('loginFormName'));
+
 export default reduxForm({
-  form: 'loginFormName'
+  form: 'loginFormName',
+  onSubmitSuccess: afterSubmit,
+ /*  destroyOnUnmount: true,
+  enableReintialize: true,
+  initialValues: {
+    loginFormName: 'initialVAL',
+  }, */
 })(LoginForm)
 
 
