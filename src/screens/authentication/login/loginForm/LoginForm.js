@@ -54,6 +54,7 @@ const LoginForm = props => {
 
       {/* <View> */}
       <Text>{ (loginPending && 'Logging you In...') }</Text>
+      <Text>{props.errorCoRespond}</Text>
       {/* </View> */}
 
       {/* <Text onPress={props.showModal} >ShowModal</Text> */}
@@ -64,11 +65,11 @@ const LoginForm = props => {
 }
 
 
-const afterSubmit = (result, dispatch) => dispatch(reset('loginFormName'));
+// const afterSubmit = (result, dispatch) => dispatch(reset('loginFormName'));
 
 export default reduxForm({
   form: 'loginFormName',
-  onSubmitSuccess: afterSubmit,
+  // onSubmitSuccess: afterSubmit,
  /*  destroyOnUnmount: true,
   enableReintialize: true,
   initialValues: {

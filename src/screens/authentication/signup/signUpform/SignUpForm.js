@@ -1,71 +1,83 @@
 import React from 'react'
 import { Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import styles from './SignupForm.style';
+import { Field, reduxForm } from 'redux-form';
+
+
+const renderSignupEmail = ({input: { onChange }}) => {
+return <TextInput
+        onChangeText={onChange}
+        placeholder='user name'
+        autoCapitalize='none'
+        //  {...restInput}
+    />  
+}
+
+const renderSignupPassword = ({input: { onChange }}) => {
+  return <TextInput
+          onChangeText={onChange}
+          placeholder='Password'
+          autoCapitalize='none'
+          secureTextEntry
+          //  {...restInput}
+      />  
+  }
+
+  const renderSignupRepeatedPassword = ({input: { onChange }}) => {
+    return <TextInput
+            onChangeText={onChange}
+            placeholder='Repeat Password'
+            autoCapitalize='none'
+            secureTextEntry
+            //  {...restInput}
+        />  
+    }
 
 const SignupForm = (props) => {
+  const { submitSignUp, navigateToLogin } = props;
   return (
     <View
       style={styles.container}>
         <View style={ styles.form } >
         <Text> Sign up screen </Text>
-          <TextInput
-          placeholder='User Name'
-          autoCapitalize='none'
-          autoCompleteType='off'
-        />
-        <TextInput
-        placeholder='Password'
-        autoCapitalize='none'
-        autoCompleteType='off'
-        secureTextEntry
-        />
-        <TextInput
-        placeholder='Repeat password'
-        autoCapitalize='none'
-        autoCompleteType='off'
-        secureTextEntry
-        />
+
+        <View>
+          <Field
+            name='signupUserName'
+            component={renderSignupEmail}
+          />
+
+          <Field
+            name='signupPassword'
+            component={renderSignupPassword}
+          />
+
+          <Field
+            name='signupRepeatedPassword'
+            component={renderSignupRepeatedPassword}
+          />
+
+        </View>
+
         <TouchableOpacity>
           <Button
-            title='Join'
-            onPress={ props.signupUser }
+            title='Create my account'
+            onPress={ submitSignUp }
           />
-        </TouchableOpacity>
+        </TouchableOpacity>        
 
-
-        {/* <TouchableOpacity>
+        <TouchableOpacity>
           <Button
             title='< Back to Login'
-            onPress={ props.navigateTo }
+            onPress={ navigateToLogin }
           />
-        </TouchableOpacity> */}
-
-        {/* <TouchableOpacity>
-          <Button
-            title='Confirm user'
-            onPress={ () => onClickConfirmSignUp({username: 'edbraouf@gmail.com', confirmationCode: '389501'}) }
-          />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
       </View>
     </View>
   )
 }
 
-export default SignupForm;
-
-
-// import React, { Component } from 'react'
-// import { Text, View } from 'react-native'
-
-// export class signupForm extends Component {
-//   render() {
-//     return (
-//       <View>
-//         <Text> textInComponent </Text>
-//       </View>
-//     )
-//   }
-// }
-
-// export default signupForm;
+export default reduxForm({
+  form: 'signupForm'
+})(SignupForm);

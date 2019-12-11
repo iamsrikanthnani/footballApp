@@ -18,7 +18,10 @@ class Signup extends Component {
   render() {
     // const { signUpUser } = this.props;
     return (
-        <SignupForm signupUser={ () => this.props.signUpUser({username: 'edbraouf@gmail.com', password: 'Allahis1'}) } />   
+        <SignupForm
+          navigateToLogin={ () => this.props.navigation.pop() } 
+          submitSignUp={ () => this.props.signUpUser({username: 'edbraouf@gmail.com', password: 'Allahis1'}) }
+        />
     )
   }
 }

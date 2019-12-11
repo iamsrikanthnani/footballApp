@@ -28,27 +28,44 @@ const mapDispatchToProps = {
 
 export class LoginScreenForm extends Component {
 
+  state = {
+    loginErrorMessages: '',
+    loginErrorCoRespond: '',
+  };
+
   handleNavigation = ()  => this.props.navigation.navigate('Signup');
 
-  handleLogInSubmit = () => {
+  loginErrorMessage = (loginErrorMessage) =>
+    (loginErrorMessage === `Cannot read property 'username' of undefined`
+      ? this.setState({ loginErrorMessages: 'Please fill all required fields' })
+      : this.setState({ loginErrorMessages: loginErrorMessage }));
+  
+
+
+    handleLogInSubmit = (loginErrorMessage) => {
+    
+    this.loginErrorMessage(loginErrorMessage)
+
     const userNameValueFromState = this.props.loginFormValue;
     const passwordValueFromState = this.props.passwordFormValue;
     
     this.props.loginUserAction({ username: userNameValueFromState, password: passwordValueFromState })
+    
   }
 
 render() {
-  const { isLoggingInPending } = this.props;
+  const { isLoggingInPending, loginErrorMessage } = this.props;
 
     return (
       <View>
       <ModalScreen />
         
         <LoginForm
-          handleSubmit={ this.handleLogInSubmit }
+          handleSubmit={ () => this.handleLogInSubmit(loginErrorMessage) }
           loginPending={ isLoggingInPending }
           // showModal={ () => this.props.showModalAction(<SignupScreen />) }
-          loginError={ this.props.loginErrorMessage }
+          loginError={ this.state.loginErrorMessages }
+          errorCoRespond={this.state.loginErrorCoRespond}
         />
 
         <TouchableOpacity>
