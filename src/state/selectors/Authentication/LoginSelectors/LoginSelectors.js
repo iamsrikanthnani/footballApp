@@ -8,3 +8,4 @@ export const selectUserLogInisRequesting = createSelector(authentication, Authen
 export const isUserVerified = createSelector(loginSuccessResults, result => _.get(result, 'attributes.email_verified'));
 export const loginErrorMessage = createSelector(authentication, Authentication => _.get(Authentication.LogIn, 'error.message'));
 export const isUserHasAccessToken = createSelector(loginSuccessResults, login_Result => _.get(login_Result, 'signInUserSession.accessToken.jwtToken'));
+export const isUserHasIDToken = createSelector(loginSuccessResults, login_Result => _.get(login_Result, 'signInUserSession.idToken.jwtToken'));

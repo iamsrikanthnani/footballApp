@@ -1,4 +1,4 @@
-const app= {
+const app = {
   App:{},
   Authentication:{
     Login:{},

@@ -4,6 +4,8 @@ import { signupUserService } from '../../../services/authentication';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
 import Profile from '../../../screens/profile/Profile';
 import { signUpUserSagaType } from '../../types/sagas';
+import navigationServices from '../../../navigation/navigationServices';
+import { loginUserSagaAction } from '../../actions/sagas';
 
 export default function* signUpWatcherSaga() {
   yield takeLatest(signUpUserSagaType, signUpUserSagaWorker);
@@ -13,11 +15,19 @@ export default function* signUpWatcherSaga() {
 export function* signUpUserSagaWorker({payload}){
   yield put({ type: 'REQUESTING' });
   try {
-    const signupSuccessData = yield call(signupUserService, 'edbraouf@gmail.com', 'Allahis1');
+    const signupSuccessData = yield call(signupUserService, payload.username, payload.password );
+    yield put(loginUserSagaAction({ username: payload.username, password: payload.password }));
+
     yield put({ type: 'SIGNUP_SUCCESS', payload: signupSuccessData });
-    yield put(showModalAction(<Profile />));
+
+    const userIDToken = yield select(isUserHasIDToken);
+    const userAccessToken = yield select(isUserHasAccessToken);
+    
+    if(userIDToken && userAccessToken){
+      yield navigationServices.navigate('Profile');
+    }
+    
   } catch (error) {
-    // console.log('Sign up error is ', error);
     yield put({ type: 'SIGNUP_ERROR', payload: error })
   }
 }

@@ -3,7 +3,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { loginUserSagaType, } from '../../types/sagas';
 // import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
 import NavigationServices from '../../../navigation/navigationServices';
-import { isUserVerified, isUserHasAccessToken } from '../../selectors/Authentication/LoginSelectors';
+import { isUserHasIDToken, isUserHasAccessToken } from '../../selectors/Authentication/LoginSelectors/LoginSelectors';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
 import { loginUserService } from '../../../services/authentication/index';
 import { loginSuccessType } from '../../types/Authentication/Login/LoginTypes';
@@ -28,11 +28,11 @@ export function* loginUserSagaWorker({payload}) {
 
     yield put(genericSuccessAction(loginSuccessData));
     
-    const isVerified = yield select(isUserVerified);
+    const userIDToken = yield select(isUserHasIDToken);
     const userAccessToken = yield select(isUserHasAccessToken);
     // yield console.log('Checking if verified: ', isVerified);
 
-    if(isVerified && userAccessToken) {
+    if(userIDToken && userAccessToken) {
       // Incase user didn't finish the profile setup [name, experience, bio, etc..], then i will add more logic in here //
       // yield put(showModalAction(<Profile />))
       yield call(NavigationServices.navigate, 'Profile');

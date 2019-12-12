@@ -5,7 +5,7 @@ import LoginForm from './loginForm/LoginForm'
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { loginUserSagaAction } from '../../../state/actions/sagas';
-import { selectUserLogInisRequesting, loginErrorMessage } from '../../../state/selectors/Authentication/LoginSelectors';
+import { selectUserLogInisRequesting, loginErrorMessage } from '../../../state/selectors/Authentication/LoginSelectors/LoginSelectors';
 import ModalScreen from '../../../commonElements/Modal/Modal';
 import { showModalAction } from '../../../state/actions/ModalActions/modalActions';
 import SignupScreen from '../../../screens/authentication/signup/Signup'
@@ -29,8 +29,8 @@ const mapDispatchToProps = {
 export class LoginScreenForm extends Component {
 
   state = {
-    loginErrorMessages: '',
-    loginErrorCoRespond: '',
+    loginErrorMessages: null,
+    loginErrorCoRespond: null,
   };
 
   handleNavigation = ()  => this.props.navigation.navigate('Signup');
