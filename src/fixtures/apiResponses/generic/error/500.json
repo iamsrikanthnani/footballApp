@@ -1,7 +1,0 @@
-{
-  "success": false,
-  "errors": {
-    "errorMessage": "500 Internal Server Error",
-    "errorCode": 500
-  }
-}

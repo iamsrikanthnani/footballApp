@@ -26,7 +26,6 @@ export function* signUpUserSagaWorker({payload}){
     if(userIDToken && userAccessToken){
       yield navigationServices.navigate('Profile');
     }
-    
   } catch (error) {
     yield put({ type: 'SIGNUP_ERROR', payload: error })
   }
