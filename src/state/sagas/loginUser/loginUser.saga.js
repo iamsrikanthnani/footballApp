@@ -1,7 +1,6 @@
 import React from 'react';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { loginUserSagaType, } from '../../types/sagas';
-// import { loginUserRequestActions } from '../../actions/requests/loginUser/getLoginUser.actions';
 import NavigationServices from '../../../navigation/navigationServices';
 import { isUserHasIDToken, isUserHasAccessToken } from '../../selectors/Authentication/LoginSelectors/LoginSelectors';
 import { showModalAction } from '../../actions/ModalActions/modalActions';
