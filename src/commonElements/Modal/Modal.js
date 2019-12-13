@@ -22,7 +22,7 @@ class ModalScreen extends Component {
           onRequestClose={() => { console.log("Modal has been closed.") }}>
 
           <View style={styles.modal}>
-            <Text style={styles.text}> Javascript Tutorial With Example</Text>
+            
               { this.props.modalChildren }
             <TouchableHighlight style={styles.touchableButton}
               onPress={() => { this.props.hideModal() }}>

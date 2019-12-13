@@ -4,14 +4,15 @@ import { View, TouchableOpacity, Button, Text } from 'react-native'
 import LoginForm from './loginForm/LoginForm'
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { loginUserAction } from '../../../state/actions/sagas';
+import { loginUserSagaAction } from '../../../state/actions/sagas/AuthenticationSagas/loginUserSaga/loginUserSagaAction';
+import { forgotPasswordSagaAction } from '../../../state/actions/sagas/AuthenticationSagas/passwordRecovery/forgotPasswordSagaAction';
+
 import { selectUserLogInisRequesting, loginErrorMessage } from '../../../state/selectors/Authentication/LoginSelectors/LoginSelectors';
 import ModalScreen from '../../../commonElements/Modal/Modal';
 import { showModalAction } from '../../../state/actions/ModalActions/modalActions';
-import SignupScreen from '../../../screens/authentication/signup/Signup'
 import { formValueSelector } from 'redux-form/immutable';
-import { loginUserSagaAction } from '../../../state/actions/sagas/AuthenticationSagas/loginUserSaga/loginUser.saga';
-
+import ForgotPasswordScreen from '../forgotPassword/ForgotPasswordScreen';
+import Profile from '../../profile/Profile';
 
 const mapStateToProps = state => {
   const formState = formValueSelector('loginFormName', state => state.Forms)
@@ -25,7 +26,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loginUserAction: loginUserSagaAction,
-  showModalAction,
+  forgotPasswordAction: forgotPasswordSagaAction,
+  forgotPasswordShowModalAction: showModalAction,
+
 };
 
 export class LoginScreenForm extends Component {
@@ -37,26 +40,30 @@ export class LoginScreenForm extends Component {
 
   handleNavigation = ()  => this.props.navigation.navigate('Signup');
 
-  loginErrorMessage = (loginErrorMessage) =>
-    (loginErrorMessage === `Cannot read property 'username' of undefined`
+  loginErrorMessage = (username, password) =>
+    (!username || !password
       ? this.setState({ loginErrorMessages: 'Please fill all required fields' })
-      : this.setState({ loginErrorMessages: loginErrorMessage }));
+      : this.setState({ loginErrorMessages: this.props.loginErrorMessage }));
   
-
-
-    handleLogInSubmit = (loginErrorMessage) => {
-    
-    this.loginErrorMessage(loginErrorMessage)
-
+    handleLogInSubmit = () => {
     const userNameValueFromState = this.props.loginFormValue;
     const passwordValueFromState = this.props.passwordFormValue;
-    
+    this.loginErrorMessage(userNameValueFromState, passwordValueFromState);
     this.props.loginUserAction({ username: userNameValueFromState, password: passwordValueFromState })
-    
   }
 
+  handleForgotPassword = () => {
+    const credentials = { username: 'edbraouf@gmail.com', password: 'Allahis1' };
+    this.props.forgotPasswordAction(credentials);
+  }
+
+  showModal = () => alert('s')
+  // this.props.forgotPasswordShowModalAction(<Profile />);
+
 render() {
-  const { isLoggingInPending, loginErrorMessage } = this.props;
+  const { isLoggingInPending, loginErrorMessage, forgotPasswordShowModalAction } = this.props;
+  this.props.loginFormValue;
+this.props.passwordFormValue;
 
     return (
       <View>
@@ -69,6 +76,9 @@ render() {
           loginError={ this.state.loginErrorMessages }
           errorCoRespond={this.state.loginErrorCoRespond}
         />
+
+        <ForgotPasswordScreen />
+
 
         <TouchableOpacity>
           <Button title='Become a Player >' onPress={ this.handleNavigation }></Button>

@@ -1,36 +1,74 @@
-import {requestingType, successType, failType} from '../../types/genericTypes/Generic.types'
+// import {requestingType, successType, failType} from '../../types/genericTypes/Generic.types'
 
-const initialState = {
-  isUSARequesting: null,
+// const initialState = {
+//   isUSARequesting: null,
+//   error: null,
+//   result: null,
+//   timestamp: undefined,
+// };
+
+// export const genericReducerSet = (state = initialState, action) => {
+//   const { type } = action;
+//   switch (type) {
+//     case requestingType: return {
+//       isUSARequesting: true,
+//       error: null,
+//       result: null,
+//     };
+//     case successType: return {
+//       ...state,
+//       isUSARequesting: null,
+//       error: null,
+//       result: payload,
+//       timestamp: Date.now(),
+//     };
+//     case failType:
+//       return {
+//         ...state,
+//         isUSARequesting: null,
+//         error: payload
+//       }
+//     default: return state;
+//   }
+// };
+
+export const getInitialState = () => ({
+  isWaiting: false,
+  value: null,
   error: null,
   result: null,
   timestamp: undefined,
-};
+});
 
-export const genericReducerSet = (state = initialState, action) => {
-  const { type } = action;
+export default actionTypeSet => (state = getInitialState(), action) => {
+  const { type, payload } = action;
   switch (type) {
-    case requestingType: return {
-      isUSARequesting: true,
+    case actionTypeSet.Start: return {
+      isWaiting: true,
+      value: payload,
       error: null,
       result: null,
     };
-    case successType: return {
+    case actionTypeSet.Fail: return {
       ...state,
-      isUSARequesting: null,
+      isWaiting: false,
+      error: payload,
+      // leave value unmodified
+    };
+    case actionTypeSet.Succeed: return {
+      ...state,
+      isWaiting: false,
       error: null,
       result: payload,
       timestamp: Date.now(),
+      // leave value unmodified
     };
-    case failType:
-      return {
-        ...state,
-        isUSARequesting: null,
-        error: payload
-      }
+    case actionTypeSet.Reset:
+      return getInitialState();
     default: return state;
   }
 };
+
 
 
 

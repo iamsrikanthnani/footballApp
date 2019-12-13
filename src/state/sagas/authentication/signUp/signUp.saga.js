@@ -1,11 +1,11 @@
 import React from 'react';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { signupUserService } from '../../../services/authentication';
-import { showModalAction } from '../../actions/ModalActions/modalActions';
-import Profile from '../../../screens/profile/Profile';
-import { signUpUserSagaType } from '../../types/sagas';
-import navigationServices from '../../../navigation/navigationServices';
-import { loginUserAction } from '../../actions/sagas';
+import { signupUserService } from '../../../../services/authentication';
+import { showModalAction } from '../../../actions/ModalActions/modalActions';
+import Profile from '../../../../screens/profile/Profile';
+import { signUpUserSagaType } from '../../../types/sagas';
+import navigationServices from '../../../../navigation/navigationServices';
+import { loginUserAction } from '../../../actions/sagas';
 
 export default function* signUpWatcherSaga() {
   yield takeLatest(signUpUserSagaType, signUpUserSagaWorker);
