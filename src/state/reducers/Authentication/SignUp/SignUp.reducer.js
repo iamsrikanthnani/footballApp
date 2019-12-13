@@ -2,8 +2,6 @@ const signupInitialState = {
   isRequesting: null,
   isSignUpSuccessful: null,
   error: null,
-  isUserConfirmed: null,
-  value: null,
   result: null,
   timestamp: new Date(),
 }
@@ -18,7 +16,6 @@ export const signupUserReducer = (state = signupInitialState, action) => {
         isRequesting: true,
       }
 
-    // Successful?  Reset the login state.
     case 'SIGNUP_SUCCESS':
       return {
         ...state,

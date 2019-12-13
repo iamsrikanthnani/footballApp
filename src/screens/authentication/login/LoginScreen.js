@@ -4,12 +4,14 @@ import { View, TouchableOpacity, Button, Text } from 'react-native'
 import LoginForm from './loginForm/LoginForm'
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { loginUserSagaAction } from '../../../state/actions/sagas';
+import { loginUserAction } from '../../../state/actions/sagas';
 import { selectUserLogInisRequesting, loginErrorMessage } from '../../../state/selectors/Authentication/LoginSelectors/LoginSelectors';
 import ModalScreen from '../../../commonElements/Modal/Modal';
 import { showModalAction } from '../../../state/actions/ModalActions/modalActions';
 import SignupScreen from '../../../screens/authentication/signup/Signup'
 import { formValueSelector } from 'redux-form/immutable';
+import { loginUserSagaAction } from '../../../state/actions/sagas/AuthenticationSagas/loginUserSaga/loginUser.saga';
+
 
 const mapStateToProps = state => {
   const formState = formValueSelector('loginFormName', state => state.Forms)

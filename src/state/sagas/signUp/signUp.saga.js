@@ -5,7 +5,7 @@ import { showModalAction } from '../../actions/ModalActions/modalActions';
 import Profile from '../../../screens/profile/Profile';
 import { signUpUserSagaType } from '../../types/sagas';
 import navigationServices from '../../../navigation/navigationServices';
-import { loginUserSagaAction } from '../../actions/sagas';
+import { loginUserAction } from '../../actions/sagas';
 
 export default function* signUpWatcherSaga() {
   yield takeLatest(signUpUserSagaType, signUpUserSagaWorker);
@@ -16,7 +16,7 @@ export function* signUpUserSagaWorker({payload}){
   yield put({ type: 'REQUESTING' });
   try {
     const signupSuccessData = yield call(signupUserService, payload.username, payload.password );
-    yield put(loginUserSagaAction({ username: payload.username, password: payload.password }));
+    yield put(loginUserAction({ username: payload.username, password: payload.password }));
 
     yield put({ type: 'SIGNUP_SUCCESS', payload: signupSuccessData });
 

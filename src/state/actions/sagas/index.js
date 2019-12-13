@@ -1,5 +1,5 @@
 import * as types from '../../types/sagas/';
 
 // Authentication Actions
-export const loginUserSagaAction = payload => ({type: types.loginUserSagaType, payload });
-export const signupUserSagaAction = payload => ({type: types.signUpUserSagaType, payload });
+export const loginUserAction = payload => ({type: types.loginUserSagaType, payload });
+export const signupUserAction = payload => ({type: types.signUpUserSagaType, payload });

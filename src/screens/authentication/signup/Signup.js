@@ -3,7 +3,8 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux'
 import { formValueSelector } from 'redux-form/immutable';
 import SignupForm from './signupForm/signupForm'
-import { signupUserSagaAction } from '../../../state/actions/sagas';
+// import { signupUserAction } from '../../../state/actions/sagas';
+import { signupUserSagaAction } from '../../../state/actions/sagas/AuthenticationSagas/signupSaga/signup.saga';
 
 const mapStateToProps = state => {
   const signupFormValues = formValueSelector('signupForm', state => state.Forms);
